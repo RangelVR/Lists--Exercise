@@ -9,8 +9,7 @@ namespace _03.House_Party
         static void Main(string[] args)
         {
             List<string> guestList = new List<string>();
-            int commands = int.Parse(Console.ReadLine());
-            
+            int commands = int.Parse(Console.ReadLine());   
 
             for (int i = 0; i < commands; i++)
             {
@@ -37,7 +36,6 @@ namespace _03.House_Party
                 }
             }
             Console.WriteLine(string.Join(Environment.NewLine, guestList));
-
         }
     }
 }
