@@ -1,49 +1,40 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Train
+namespace _01.Train
 {
     class Program
     {
         static void Main(string[] args)
         {
-            List<int> wagonsWhithPassangers = Console.ReadLine()
-                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .ToList();
+            List<int> nums = Console.ReadLine().Split().Select(int.Parse).ToList();
             int maxCapacity = int.Parse(Console.ReadLine());
-            string comand;
+            string[] command = Console.ReadLine().Split().ToArray();
 
-            while ((comand = Console.ReadLine()) != "end")
+            while (command[0] != "end")
             {
-                string[] comandArray = comand.Split(" ", StringSplitOptions.RemoveEmptyEntries)
-                    .ToArray();
-                string typeComand = comandArray[0];
-                
-
-                if (typeComand == "Add")
+                if (command[0] == "Add")
                 {
-                    int passangers = int.Parse(comandArray[1]);
-                    wagonsWhithPassangers.Add(passangers);
-                    continue;
+                    nums.Add(int.Parse(command[1]));
                 }
                 else
                 {
-                    int passangers = int.Parse(comandArray[0]);
-
-                    for (int i = 0; i < wagonsWhithPassangers.Count; i++)
+                    for (int i = 0; i < nums.Count; i++)
                     {
-                        if (wagonsWhithPassangers[i] + passangers <= maxCapacity)
+                        int passangers = int.Parse(command[0]);
+                        if (passangers + nums[i] <= maxCapacity)
                         {
-                            wagonsWhithPassangers[i] += passangers;
+                            nums[i] += passangers;
                             break;
                         }
                     }
                 }
-            }
 
-            Console.WriteLine(string.Join(" ", wagonsWhithPassangers));
+                command = Console.ReadLine().Split().ToArray();
+            }
+            Console.WriteLine(string.Join(" ", nums));
+
         }
     }
 }
