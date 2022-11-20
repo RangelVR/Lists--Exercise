@@ -1,41 +1,29 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Change_List
+namespace _02.Change_List
 {
     class Program
     {
         static void Main(string[] args)
         {
-            List<int> numbers = Console.ReadLine()
-                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .ToList();
-            string comand;
+            List<string> nums = Console.ReadLine().Split().ToList();
+            string[] command = Console.ReadLine().Split().ToArray();
 
-            while ((comand = Console.ReadLine()) != "end")
+            while (command[0] != "end")
             {
-                string[] comandArray = comand.Split();
-                string operation = comandArray[0];
-
-                switch (operation)
+                if (command[0] == "Delete")
                 {
-                    case "Delete":
-                        int deletedElement = int.Parse(comandArray[1]);
-                        numbers.Remove(deletedElement);
-                        break;
-
-                    case "Insert":
-                        int elemet = int.Parse(comandArray[1]);
-                        int position = int.Parse(comandArray[2]);
-                        numbers.Insert(position, elemet);
-                        break;
+                    nums.RemoveAll(x => x == command[1]);
                 }
-
+                else if (command[0] == "Insert")
+                {
+                    nums.Insert(int.Parse(command[2]), command[1] );
+                }
+                command = Console.ReadLine().Split().ToArray();
             }
-
-            Console.WriteLine(string.Join(" ", numbers));
+            Console.WriteLine(string.Join(" ", nums));
         }
     }
 }
