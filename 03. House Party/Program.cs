@@ -1,44 +1,43 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace House_Party
+namespace _03.House_Party
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int numberOfInputs = int.Parse(Console.ReadLine());
-            List<string> listOfGuests = new List<string>();
+            List<string> guestList = new List<string>();
+            int commands = int.Parse(Console.ReadLine());
+            
 
-            for (int i = 0; i < numberOfInputs; i++)
+            for (int i = 0; i < commands; i++)
             {
-                string input = Console.ReadLine();
-                string[] inputArray = input.Split();
-                string name = inputArray[0];
+                string[] comm = Console.ReadLine().Split().ToArray();
+                string name = comm[0];
 
-                if (inputArray.Length == 3)
+                if (comm.Length == 3)
                 {
-                    if (listOfGuests.Contains(name))
+                    if (guestList.Contains(name))
                     {
                         Console.WriteLine($"{name} is already in the list!");
                         continue;
                     }
-                    listOfGuests.Add(name);
+                    guestList.Add(name);
                 }
-                else if (inputArray.Length == 4)
+                else if (comm.Length == 4)
                 {
-                    if (listOfGuests.Contains(name))
+                    if (guestList.Contains(name))
                     {
-                        listOfGuests.Remove(name);
+                        guestList.Remove(name);
+                        continue;
                     }
-                    else if (!listOfGuests.Contains(name))
-                    {
-                        Console.WriteLine($"{name} is not in the list!");
-                    }
+                    Console.WriteLine($"{name} is not in the list!");
                 }
             }
+            Console.WriteLine(string.Join(Environment.NewLine, guestList));
 
-            Console.WriteLine(string.Join(Environment.NewLine, listOfGuests));
         }
     }
 }
