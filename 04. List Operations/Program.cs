@@ -1,95 +1,74 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace List_Operations
+namespace _04.List_Operations
 {
     class Program
     {
         static void Main(string[] args)
         {
-            List<int> numbersList = Console.ReadLine()
-                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .ToList();
+            List<int> nums = Console.ReadLine().Split().Select(int.Parse).ToList();
+            string[] command = Console.ReadLine().Split().ToArray();
 
-            string comand;
-            while ((comand = Console.ReadLine()) != "End")
+            while (command[0] != "End")
             {
-                string[] comandArray = comand.Split();
-                string operation = comandArray[0];
+                switch (command[0])
+                {
+                    case "Add":
+                        nums.Add(int.Parse(command[1]));
+                        break;
 
-                if (operation == "Add")
-                {
-                    int number = int.Parse(comandArray[1]);
-                    numbersList.Add(number);
-                }
-                else if (operation == "Insert")
-                {
-                    int number = int.Parse(comandArray[1]);
-                    int index = int.Parse(comandArray[2]);
+                    case "Insert":
+                        int index = int.Parse(command[2]);
+                        if (index >= 0 && index < nums.Count)
+                        {
+                            nums.Insert(int.Parse(command[2]), int.Parse(command[1]));
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid index");
+                        }
+                        break;
 
-                    if (index < 0 || index >= numbersList.Count)
-                    {
-                        Console.WriteLine("Invalid index");
-                    }
-                    else
-                    {
-                        numbersList.Insert(index, number);
-                    }
+                    case "Remove":
+                        int remIndex = int.Parse(command[1]);
+                        if (remIndex >= 0 && remIndex < nums.Count)
+                        {
+                            nums.RemoveAt(int.Parse(command[1]));
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid index");
+                        }
+                        break;
+
+                    case "Shift":
+                        int repTimes = int.Parse(command[2]) % nums.Count;
+                        if (command[1] == "left")
+                        {
+                            for (int i = 0; i < repTimes; i++)
+                            {
+                                int firstNum = nums.First();
+                                nums.RemoveAt(0);
+                                nums.Add(firstNum);
+                            }
+                        }
+                        else if (command[1] == "right")
+                        {
+                            for (int i = 0; i < repTimes; i++)
+                            {
+                                int lastNum = nums[nums.Count - 1];
+                                nums.Remove(lastNum);
+                                nums.Insert(0, lastNum);
+                            }
+                        }
+                        break;
                 }
-                else if (operation == "Remove")
-                {
-                    int index = int.Parse(comandArray[1]);
-                    if (index < 0 || index >= numbersList.Count)
-                    {
-                        Console.WriteLine("Invalid index");
-                    }
-                    else
-                    {
-                        numbersList.RemoveAt(index);
-                    }
-                }
-                else if (operation == "Shift")
-                {
-                    GetShiftResult(numbersList, comandArray);
-                }
+                command = Console.ReadLine().Split().ToArray();
             }
-
-            Console.WriteLine(string.Join(" ", numbersList));
+            Console.WriteLine(string.Join(" ", nums));
         }
-
-
-        static void  GetShiftResult(List<int> numbersList, string[] comandArray)
-        {
-            string direction = comandArray[1];
-
-            if (direction == "left")
-            {
-                int rotation = int.Parse(comandArray[2]);
-                int efectiveRotation = rotation % numbersList.Count;
-
-                for (int i = 0; i < efectiveRotation; i++)
-                {
-                    int firstInd = numbersList[0];
-                    numbersList.Remove(firstInd);
-                    numbersList.Add(firstInd);
-
-                }
-            }
-            else if (direction == "right")
-            {
-                int rotation = int.Parse(comandArray[2]);
-                int efectiveRotation = rotation % numbersList.Count;
-
-                for (int i = 0; i < efectiveRotation; i++)
-                {
-                    int lastInd = numbersList[numbersList.Count - 1];
-                    numbersList.Remove(lastInd);
-                    numbersList.Insert(0, lastInd);
-
-                }
-            }
-        } 
+        
     }
 }
