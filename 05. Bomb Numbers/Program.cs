@@ -1,53 +1,37 @@
-﻿using System;
-using System.Linq;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace P05.BombArrays
+namespace _05.Bomb_Numbers
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
-            List<int> numbers = Console.ReadLine()
-                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .ToList();
-            int[] bombInfo = Console.ReadLine()
-                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .ToArray();
-            int bombNumber = bombInfo[0];
+            List<int> nums = Console.ReadLine().Split().Select(int.Parse).ToList();
+            int[] bombInfo = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            int bomb = bombInfo[0];
             int bombPower = bombInfo[1];
 
-
-
-            while (true)
+            while (nums.Contains(bomb))
             {
-                int indexOfBomb = numbers.IndexOf(bombNumber);
-
-                if (indexOfBomb == -1)
-                {
-                    break;
-                }
-
-                DetonateBomb(numbers, indexOfBomb, bombPower);
+                int indexOfBomb = nums.IndexOf(bomb);
+                GetSumOfNums(nums, indexOfBomb, bombPower);
             }
-
-            Console.WriteLine(numbers.Sum());
+            Console.WriteLine(nums.Sum());
         }
 
         
-        static void DetonateBomb(List<int> numbers, int indexOfBomb, int bombPower)
+        static void GetSumOfNums(List<int> nums, int indexOfBomb, int bombPower)
         {
             int rightCount = indexOfBomb + bombPower;
-            for (int cnt = indexOfBomb; cnt <= rightCount; cnt++)
+            for (int i = indexOfBomb; i <= rightCount; i++)
             {
-                if (indexOfBomb >= numbers.Count)
+                if (indexOfBomb >= nums.Count)
                 {
                     break;
                 }
-
-                numbers.RemoveAt(indexOfBomb);
+                nums.RemoveAt(indexOfBomb);
             }
 
             int leftCount = indexOfBomb - bombPower;
@@ -55,9 +39,9 @@ namespace P05.BombArrays
             {
                 leftCount = 0;
             }
-            for (int cnt = leftCount; cnt < indexOfBomb; cnt++)
+            for (int i = leftCount; i < indexOfBomb; i++)
             {
-                numbers.RemoveAt(leftCount);
+                nums.RemoveAt(leftCount);
             }
         }
     }
