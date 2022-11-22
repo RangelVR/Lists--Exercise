@@ -1,74 +1,63 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Cards_Game
+namespace _06.Cards_Game
 {
     class Program
     {
         static void Main(string[] args)
         {
-            List<int> firstPlayerCards = Console.ReadLine()
-                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .ToList();
-            List<int> secondPlayerCards = Console.ReadLine()
-                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .ToList();
+            List<int> player1Cards = Console.ReadLine().Split().Select(int.Parse).ToList();
+            List<int> player2Cards = Console.ReadLine().Split().Select(int.Parse).ToList();
 
-
-            GetTheWinnerOfPlayers(firstPlayerCards, secondPlayerCards);
-            PrintTheWinner(firstPlayerCards, secondPlayerCards);
-            
+            GetWinner(player1Cards, player2Cards);
+            PrintWinner(player1Cards, player2Cards);
         }
 
-        static void GetTheWinnerOfPlayers(List<int> firstPlayerCards, List<int> secondPlayerCards)
+        static void GetWinner(List<int> cards1, List<int> cards2)
         {
             while (true)
             {
-                int firstIndexOfFirstPlayer = firstPlayerCards[0];
-                int firstIndexOfSecondPlayer = secondPlayerCards[0];
+                int firstCardDeck1 = cards1[0];
+                int firstCardDeck2 = cards2[0];
 
-                if (firstIndexOfFirstPlayer > firstIndexOfSecondPlayer)
+                if (firstCardDeck1 == firstCardDeck2)
                 {
-                    secondPlayerCards.Remove(firstIndexOfSecondPlayer);
-                    firstPlayerCards.Add(firstIndexOfSecondPlayer);
-                    firstPlayerCards.Remove(firstIndexOfFirstPlayer);
-                    firstPlayerCards.Add(firstIndexOfFirstPlayer);
+                    cards1.RemoveAt(0);
+                    cards2.RemoveAt(0);
                 }
-                else if (firstIndexOfFirstPlayer < firstIndexOfSecondPlayer)
+                else if (firstCardDeck1 > firstCardDeck2)
                 {
-                    firstPlayerCards.Remove(firstIndexOfFirstPlayer);
-                    secondPlayerCards.Add(firstIndexOfFirstPlayer);
-                    secondPlayerCards.Remove(firstIndexOfSecondPlayer);
-                    secondPlayerCards.Add(firstIndexOfSecondPlayer);
+                    cards1.Add(firstCardDeck2);
+                    cards1.Add(firstCardDeck1);
+                    cards1.RemoveAt(0);
+                    cards2.RemoveAt(0);
                 }
-                else
+                else if (firstCardDeck2 > firstCardDeck1)
                 {
-                    firstPlayerCards.Remove(firstIndexOfFirstPlayer);
-                    secondPlayerCards.Remove(firstIndexOfSecondPlayer);
+                    cards2.Add(firstCardDeck1);
+                    cards2.Add(firstCardDeck2);
+                    cards1.RemoveAt(0);
+                    cards2.RemoveAt(0);
+                }
 
-                }
-                if (firstPlayerCards.Count == 0 || secondPlayerCards.Count == 0)
+                if (cards1.Count == 0 || cards2.Count == 0)
                 {
                     break;
                 }
-
             }
         }
 
-        static void PrintTheWinner(List<int> firstPlayerCards, List<int> secondPlayerCards)
+        static void PrintWinner(List<int> player1Cards, List<int> player2Cards)
         {
-            if (firstPlayerCards.Count != 0)
+            if (player1Cards.Count == 0)
             {
-                firstPlayerCards.Sum();
-                Console.WriteLine($"First player wins! Sum: {firstPlayerCards.Sum()}");
+                Console.WriteLine($"Second player wins! Sum: {player2Cards.Sum()}");
             }
-            else if (secondPlayerCards.Count != 0)
+            else
             {
-                secondPlayerCards.Sum();
-                Console.WriteLine($"Second player wins! Sum: {secondPlayerCards.Sum()}");
+                Console.WriteLine($"First player wins! Sum: {player1Cards.Sum()}");
             }
         }
     }
