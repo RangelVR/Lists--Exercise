@@ -1,29 +1,21 @@
-﻿using System;
-using System.Linq;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace ListExc
+namespace _06.Cards_Game
 {
-    class MainClass
+    class Program
     {
-        public static void Main()
+        static void Main(string[] args)
         {
+            List<string> input = Console.ReadLine().Split("|").Reverse().ToList();
+            List<string> resultArray = new List<string>();
 
-
-            List<string> nums = Console.ReadLine()
-                .Split("|", StringSplitOptions.RemoveEmptyEntries)
-                .Reverse()
-                .ToList();
-            List<string> numbers = new List<string>();
-
-            foreach (var str in nums)
+            foreach (var arr in input)
             {
-                numbers.AddRange(str.Split( " ", StringSplitOptions.RemoveEmptyEntries)
-                                    .ToList());
+                resultArray.AddRange(arr.Split(" ", StringSplitOptions.RemoveEmptyEntries).ToList());
             }
-            Console.WriteLine(string.Join(" ", numbers));
+            Console.WriteLine(string.Join(" ", resultArray));
         }
-
     }
-
 }
