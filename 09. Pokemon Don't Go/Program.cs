@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,21 +14,14 @@ namespace _09.Pokemon_Dont_Go
             while (distances.Count != 0)
             {
                 int index = int.Parse(Console.ReadLine());
-
-                if (index >= distances.Count)
+                
+                if (index > distances.Count - 1)
                 {
                     int lastNum = distances[distances.Count - 1];
                     sum += lastNum;
                     for (int i = 0; i < distances.Count; i++)
                     {
-                        if (distances[i] > lastNum)
-                        {
-                            distances[i] = distances[i] - lastNum;
-                        }
-                        else if (distances[i] <= lastNum)
-                        {
-                            distances[i] = distances[i] + lastNum;
-                        }
+                        distances[i] = distances[i] + lastNum;
                     }
                 }
                 else if (index < 0)
@@ -37,14 +30,7 @@ namespace _09.Pokemon_Dont_Go
                     sum += firstNum;
                     for (int i = 0; i < distances.Count; i++)
                     {
-                        if (distances[i] > firstNum)
-                        {
-                            distances[i] = distances[i] - firstNum;
-                        }
-                        else if (distances[i] <= firstNum)
-                        {
-                            distances[i] = distances[i] + firstNum;
-                        }
+                        distances[i] = distances[i] + firstNum;
                     }
                 }
                 else
@@ -58,9 +44,9 @@ namespace _09.Pokemon_Dont_Go
                         int num = distances[i];
                         if (num > removedNum)
                         {
-                            distances[i] = num - removedNum;
+                            distances[i] = num - Math.Abs(removedNum);
                         }
-                        else if (num <= removedNum)
+                        else
                         {
                             distances[i] = num + removedNum;
                         }
