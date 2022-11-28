@@ -8,7 +8,7 @@ namespace _10._SoftUni_Course_Planning
     {
         static void Main(string[] args)
         {
-            
+            // в Judge дава 88/100.
             List<string> list = Console.ReadLine().Split(", ", StringSplitOptions.RemoveEmptyEntries).ToList();
             string[] command = Console.ReadLine().Split(":").ToArray();
 
