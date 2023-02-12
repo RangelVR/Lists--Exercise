@@ -1,40 +1,35 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+List<int> train = Console.ReadLine().Split().Select(int.Parse).ToList();
+int maxCapacityWagon = int.Parse(Console.ReadLine());
 
-namespace _01.Train
+while (true)
 {
-    class Program
+    string command = Console.ReadLine();
+
+    if (command == "end")
     {
-        static void Main(string[] args)
+        break;
+    }
+
+    if (command.Split().First() == "Add")
+    {
+        int wagonWithPassangers = int.Parse(command.Split().Last());
+        train.Add(wagonWithPassangers);
+    }
+    else
+    {
+        int passangers = int.Parse(command);
+
+        for (int wagon = 0; wagon < train.Count; wagon++)
         {
-            List<int> nums = Console.ReadLine().Split().Select(int.Parse).ToList();
-            int maxCapacity = int.Parse(Console.ReadLine());
-            string[] command = Console.ReadLine().Split().ToArray();
+            int ocupadedPlaces = train[wagon];
 
-            while (command[0] != "end")
+            if (passangers + ocupadedPlaces <= maxCapacityWagon)
             {
-                if (command[0] == "Add")
-                {
-                    nums.Add(int.Parse(command[1]));
-                }
-                else
-                {
-                    for (int i = 0; i < nums.Count; i++)
-                    {
-                        int passangers = int.Parse(command[0]);
-                        if (passangers + nums[i] <= maxCapacity)
-                        {
-                            nums[i] += passangers;
-                            break;
-                        }
-                    }
-                }
-
-                command = Console.ReadLine().Split().ToArray();
+                train[wagon] += passangers;
+                break;
             }
-            Console.WriteLine(string.Join(" ", nums));
-
         }
     }
 }
+
+Console.WriteLine(string.Join(" ", train));
