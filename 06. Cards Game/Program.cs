@@ -1,64 +1,43 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+List<int> cards1 = Console.ReadLine().Split().Select(int.Parse).ToList();
+List<int> cards2 = Console.ReadLine().Split().Select(int.Parse).ToList();
 
-namespace _06.Cards_Game
+
+while (true)
 {
-    class Program
+    if (cards1.Count == 0 || cards2.Count == 0)
     {
-        static void Main(string[] args)
-        {
-            List<int> player1Cards = Console.ReadLine().Split().Select(int.Parse).ToList();
-            List<int> player2Cards = Console.ReadLine().Split().Select(int.Parse).ToList();
-
-            GetWinner(player1Cards, player2Cards);
-            PrintWinner(player1Cards, player2Cards);
-        }
-
-        static void GetWinner(List<int> cards1, List<int> cards2)
-        {
-            while (true)
-            {
-                int firstCardDeck1 = cards1[0];
-                int firstCardDeck2 = cards2[0];
-
-                if (firstCardDeck1 == firstCardDeck2)
-                {
-                    cards1.RemoveAt(0);
-                    cards2.RemoveAt(0);
-                }
-                else if (firstCardDeck1 > firstCardDeck2)
-                {
-                    cards1.Add(firstCardDeck2);
-                    cards1.Add(firstCardDeck1);
-                    cards1.RemoveAt(0);
-                    cards2.RemoveAt(0);
-                }
-                else if (firstCardDeck2 > firstCardDeck1)
-                {
-                    cards2.Add(firstCardDeck1);
-                    cards2.Add(firstCardDeck2);
-                    cards1.RemoveAt(0);
-                    cards2.RemoveAt(0);
-                }
-
-                if (cards1.Count == 0 || cards2.Count == 0)
-                {
-                    break;
-                }
-            }
-        }
-
-        static void PrintWinner(List<int> player1Cards, List<int> player2Cards)
-        {
-            if (player1Cards.Count == 0)
-            {
-                Console.WriteLine($"Second player wins! Sum: {player2Cards.Sum()}");
-            }
-            else
-            {
-                Console.WriteLine($"First player wins! Sum: {player1Cards.Sum()}");
-            }
-        }
+        break;
     }
+
+    int firstCardDeck1 = cards1.First();
+    int firstCardDeck2 = cards2.First();
+
+    if (cards1[0] > cards2[0])
+    {
+        cards1.Add(firstCardDeck2);
+        cards1.Add(firstCardDeck1);
+        cards2.RemoveAt(0);
+        cards1.RemoveAt(0);
+    }
+    else if (cards2[0] > cards1[0])
+    {
+        cards2.Add(firstCardDeck1);
+        cards2.Add(firstCardDeck2);
+        cards2.RemoveAt(0);
+        cards1.RemoveAt(0);
+    }
+    else
+    {
+        cards2.RemoveAt(0);
+        cards1.RemoveAt(0);
+    }
+}
+
+if (cards1.Sum() > cards2.Sum())
+{
+    Console.WriteLine($"First player wins! Sum: {cards1.Sum()}");
+}
+else
+{
+    Console.WriteLine($"Second player wins! Sum: {cards2.Sum()}");
 }
