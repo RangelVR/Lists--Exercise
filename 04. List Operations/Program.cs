@@ -42,35 +42,29 @@ while ((command = Console.ReadLine()) != "End")
     }
     else if (operation == "Shift")
     {
-        GetShiftLeftOrRight(list, arrCommands);
+        string direction = arrCommands[1];
+        int count = int.Parse(arrCommands[2]);
+
+        if (direction == "left")
+        {
+            for (int i = 0; i < count % list.Count; i++)
+            {
+                int firstNum = list.First();
+                list.Add(firstNum);
+                list.RemoveAt(0);
+            }
+        }
+        else if (direction == "right")
+        {
+            for (int i = 0; i < count % list.Count; i++)
+            {
+                int lastNum = list.Last();
+                list.Insert(0, lastNum);
+                list.RemoveAt(list.Count - 1);
+            }
+        }
     }
 }
 
 Console.WriteLine(string.Join(" ", list));
 
-
-static List<int> GetShiftLeftOrRight(List<int> list, string[] command)
-{
-    string direction = command[1];
-    int count = int.Parse(command[2]);
-
-    if (direction == "left")
-    {
-        for (int i = 0; i < count % list.Count; i++)
-        {
-            int firstNum = list.First();
-            list.Add(firstNum);
-            list.RemoveAt(0);
-        }
-    }
-    else if (direction == "right")
-    {
-        for (int i = 0; i < count % list.Count; i++)
-        {
-            int lastNum = list.Last();
-            list.Insert(0, lastNum);
-            list.RemoveAt(list.Count - 1);
-        }
-    }
-    return list;
-}
