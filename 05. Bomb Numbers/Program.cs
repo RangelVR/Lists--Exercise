@@ -1,48 +1,30 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+List<int> bombField = Console.ReadLine().Split().Select(int.Parse).ToList();
+int[] specialNumWithPower = Console.ReadLine().Split().Select(int.Parse).ToArray();
 
-namespace _05.Bomb_Numbers
+int specialNum = specialNumWithPower[0];
+int bombPower = specialNumWithPower[1];
+
+while (bombField.Contains(specialNum))
 {
-    class Program
+    int indexOfSpecialNum = bombField.IndexOf(specialNum);
+
+    int leftCount = indexOfSpecialNum - bombPower;
+    int rightCount = indexOfSpecialNum + bombPower;
+
+    if (leftCount < 0)
     {
-        static void Main(string[] args)
-        {
-            List<int> nums = Console.ReadLine().Split().Select(int.Parse).ToList();
-            int[] bombInfo = Console.ReadLine().Split().Select(int.Parse).ToArray();
-            int bomb = bombInfo[0];
-            int bombPower = bombInfo[1];
+        leftCount = 0;
+    }
 
-            while (nums.Contains(bomb))
-            {
-                int indexOfBomb = nums.IndexOf(bomb);
-                GetSumOfNums(nums, indexOfBomb, bombPower);
-            }
-            Console.WriteLine(nums.Sum());
-        }
+    if (rightCount >= bombField.Count)
+    {
+        rightCount = bombField.Count - 1;
+    }
 
-        
-        static void GetSumOfNums(List<int> nums, int indexOfBomb, int bombPower)
-        {
-            int rightCount = indexOfBomb + bombPower;
-            for (int i = indexOfBomb; i <= rightCount; i++)
-            {
-                if (indexOfBomb >= nums.Count)
-                {
-                    break;
-                }
-                nums.RemoveAt(indexOfBomb);
-            }
-
-            int leftCount = indexOfBomb - bombPower;
-            if (leftCount < 0)
-            {
-                leftCount = 0;
-            }
-            for (int i = leftCount; i < indexOfBomb; i++)
-            {
-                nums.RemoveAt(leftCount);
-            }
-        }
+    for (int i = leftCount; i <= rightCount; i++)
+    {
+        bombField.RemoveAt(leftCount);
     }
 }
+
+Console.WriteLine(bombField.Sum());
