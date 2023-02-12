@@ -7,15 +7,15 @@ string command;
 while ((command = Console.ReadLine()) != "End")
 {
     string[] arrCommands = command.Split().ToArray();
-	string operation = arrCommands[0];
+    string operation = arrCommands[0];
 
-	if (operation == "Add")
-	{
+    if (operation == "Add")
+    {
         int number = int.Parse(arrCommands[1]);
         list.Add(number);
-	}
-	else if (operation == "Insert")
-	{
+    }
+    else if (operation == "Insert")
+    {
         int num = int.Parse(arrCommands[1]);
         int index = int.Parse(arrCommands[2]);
 
@@ -27,7 +27,7 @@ while ((command = Console.ReadLine()) != "End")
         {
             Console.WriteLine("Invalid index");
         }
-	}
+    }
     else if (operation == "Remove")
     {
         int index = int.Parse(arrCommands[1]);
