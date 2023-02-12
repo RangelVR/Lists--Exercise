@@ -1,29 +1,24 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+List<int> list = Console.ReadLine().Split().Select(int.Parse).ToList();
 
-namespace _02.Change_List
+string command;
+
+while ((command = Console.ReadLine()) != "end")
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            List<string> nums = Console.ReadLine().Split().ToList();
-            string[] command = Console.ReadLine().Split().ToArray();
+    string[] commArr = command.Split();
 
-            while (command[0] != "end")
-            {
-                if (command[0] == "Delete")
-                {
-                    nums.RemoveAll(x => x == command[1]);
-                }
-                else if (command[0] == "Insert")
-                {
-                    nums.Insert(int.Parse(command[2]), command[1] );
-                }
-                command = Console.ReadLine().Split().ToArray();
-            }
-            Console.WriteLine(string.Join(" ", nums));
-        }
+    switch (commArr[0])
+    {
+        case "Delete":
+            int numToDelete = int.Parse(commArr[1]);
+            list.RemoveAll(x => x == numToDelete);
+            break;
+
+        case "Insert":
+            int numToInsert = int.Parse(commArr[1]);
+            int position = int.Parse(commArr[2]);
+            list.Insert(position, numToInsert);
+            break;
     }
 }
+
+Console.WriteLine(string.Join(" ", list));
