@@ -19,3 +19,13 @@ namespace _06.Cards_Game
         }
     }
 }
+
+
+//List<string> listOfInput = Console.ReadLine().Split("|", StringSplitOptions.RemoveEmptyEntries).ToList();
+//List<string> resultList = new List<string>();
+
+//for (int i = listOfInput.Count - 1; i >= 0; i--)
+//{
+//    resultList.AddRange(listOfInput[i].Split(" ", StringSplitOptions.RemoveEmptyEntries).ToList());
+//}
+//Console.WriteLine(string.Join(" ", resultList));
