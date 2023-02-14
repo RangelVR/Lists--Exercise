@@ -1,59 +1,70 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+List<int> list = Console.ReadLine().Split().Select(int.Parse).ToList();
 
-namespace _09.Pokemon_Dont_Go
+int sum = 0;
+
+while (list.Count > 0)
 {
-    class Program
-    {
-        static void Main(string[] args)
+    int indexToRemove = int.Parse(Console.ReadLine());
+
+	int firstElemet = list[0];
+	int lastElement = list[list.Count - 1];
+    int removedElement = 0;
+
+    if (indexToRemove < 0)
+	{
+        if (indexToRemove < 0)
         {
-            List<int> distances = Console.ReadLine().Split().Select(int.Parse).ToList();
-            int sum = 0;
+            indexToRemove = 0;
+        }
 
-            while (distances.Count != 0)
-            {
-                int index = int.Parse(Console.ReadLine());
-                
-                if (index > distances.Count - 1)
-                {
-                    int lastNum = distances[distances.Count - 1];
-                    sum += lastNum;
-                    for (int i = 0; i < distances.Count; i++)
-                    {
-                        distances[i] = distances[i] + lastNum;
-                    }
-                }
-                else if (index < 0)
-                {
-                    int firstNum = distances[0];
-                    sum += firstNum;
-                    for (int i = 0; i < distances.Count; i++)
-                    {
-                        distances[i] = distances[i] + firstNum;
-                    }
-                }
-                else
-                {
-                    int removedNum = distances[index];
-                    sum += removedNum;
-                    distances.RemoveAt(index);
+        removedElement = firstElemet;
+        sum += removedElement;
+        list.RemoveAt(0);
+		list.Insert(0, lastElement);
+        GetIncreaseOrDecreaseElements(list, indexToRemove, removedElement);
 
-                    for (int i = 0; i < distances.Count; i++)
-                    {
-                        int num = distances[i];
-                        if (num > removedNum)
-                        {
-                            distances[i] = num - Math.Abs(removedNum);
-                        }
-                        else
-                        {
-                            distances[i] = num + removedNum;
-                        }
-                    }
-                }
-            }
-            Console.WriteLine(sum);
+
+    }
+    else if (indexToRemove >= list.Count)
+	{
+        if (indexToRemove > list.Count - 1)
+        {
+            indexToRemove = list.Count - 1;
+        }
+
+        removedElement = lastElement;
+        sum += lastElement;
+        list.RemoveAt(list.Count - 1);
+		list.Add(firstElemet);
+        GetIncreaseOrDecreaseElements(list, indexToRemove, removedElement);
+    }
+    else
+	{
+        removedElement = list[indexToRemove];
+		sum += removedElement;
+		list.RemoveAt(indexToRemove);
+		GetIncreaseOrDecreaseElements(list, indexToRemove, removedElement);
+    }
+}
+
+Console.WriteLine(sum);
+
+
+
+static List<int> GetIncreaseOrDecreaseElements(List<int> list, int indexToRemove, int removedElement)
+{
+
+    for (int i = 0; i < list.Count; i++)
+    {
+        if (list[i] <= removedElement)
+        {
+            list[i] += removedElement;
+        }
+        else
+        {
+            list[i] -= removedElement;
         }
     }
+
+    return list;
 }
