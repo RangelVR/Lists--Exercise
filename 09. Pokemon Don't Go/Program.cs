@@ -22,8 +22,6 @@ while (list.Count > 0)
         list.RemoveAt(0);
 		list.Insert(0, lastElement);
         GetIncreaseOrDecreaseElements(list, indexToRemove, removedElement);
-
-
     }
     else if (indexToRemove >= list.Count)
 	{
@@ -53,7 +51,6 @@ Console.WriteLine(sum);
 
 static List<int> GetIncreaseOrDecreaseElements(List<int> list, int indexToRemove, int removedElement)
 {
-
     for (int i = 0; i < list.Count; i++)
     {
         if (list[i] <= removedElement)
