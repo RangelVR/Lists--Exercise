@@ -12,10 +12,7 @@ while (list.Count > 0)
 
     if (indexToRemove < 0)
     {
-        if (indexToRemove < 0)
-        {
-            indexToRemove = 0;
-        }
+	indexToRemove = 0;
 
         removedElement = firstElemet;
         sum += removedElement;
@@ -25,10 +22,7 @@ while (list.Count > 0)
     }
     else if (indexToRemove >= list.Count)
     {
-        if (indexToRemove > list.Count - 1)
-        {
-            indexToRemove = list.Count - 1;
-        }
+	 indexToRemove = list.Count - 1;
 
         removedElement = lastElement;
         sum += lastElement;
