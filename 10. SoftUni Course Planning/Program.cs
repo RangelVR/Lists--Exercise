@@ -51,7 +51,6 @@ while (command != "course start")
                     list.Add(lesson + "-Exercise");
                 }
             }
-            
             break;
 
         case "Swap":
@@ -87,7 +86,6 @@ while (command != "course start")
 
     command = Console.ReadLine();
 }
-
 
 
 for (int i = 0; i < list.Count; i++)
